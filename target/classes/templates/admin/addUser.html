@@ -1,0 +1,90 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>后台管理</title>
+    <link rel="stylesheet" href="css/init.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/select2.css" />
+    <link rel="stylesheet" type="text/css" href="css/demo.css"/>
+    <link rel="stylesheet" type="text/css" href="css/zTreeStyle.css"/>
+</head>
+
+<body>
+<div class="g-hd" th:include="admin/home :: header">
+    header
+</div>
+<div class="g-sd" th:include="admin/user :: left">
+    userleft
+</div>
+<div class="g-mn" th:fragment="center">
+    <div class="widget-box">
+        <div class="widget-title"><span class="icon"> <i class="icon-align-justify"></i> </span>
+            <h5>添加用户</h5>
+        </div>
+        <div class="widget-content nopadding">
+            <form action="/cms/saveUser" method="post" class="form-horizontal">
+
+                <div class="control-group">
+                    <label class="control-label">登录名 :</label>
+                    <div class="controls">
+                        <input type="text" class="span11" placeholder="登录名" name="username"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">展示姓名:</label>
+                    <div class="controls">
+                        <input type="text" class="span11" placeholder="真实姓名" name="realname"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">密码:</label>
+                    <div class="controls">
+                        <input type="password" class="span11" placeholder="密码" name="password"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">是否管理员 :</label>
+                    <div class="controls">
+                        <label >是：<input type="radio" checked="checked" name="isAdmin" value="true"  /></label>
+                        <label >否：<input type="radio" name="isAdmin" value="false" /></label>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">状态 :</label>
+                    <div class="controls">
+                        <label >是：<input type="radio" checked="checked" name="state" value="true"  /></label>
+                        <label >否：<input type="radio" name="state" value="false" /></label>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">角色:</label>
+                    <div class="controls">
+                        <select name="role">
+                            <option>默认角色</option>
+                            <option>Second option</option>
+                            <option>Third option</option>
+                            <option>Fourth option</option>
+                            <option>Fifth option</option>
+                            <option>Sixth option</option>
+                            <option>Seventh option</option>
+                            <option>Eighth option</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-success">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="g-ft" th:include="admin/home :: footer">
+    footer
+</div>
+</body>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+</html>

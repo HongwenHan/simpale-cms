@@ -1,0 +1,55 @@
+# application.properties
+# Server settings (ServerProperties)
+server:
+  port: 8088
+  address: 127.0.0.1
+## server.sessionTimeout=30
+  contextPath: /cms
+
+## Tomcat specifics
+## server.tomcat.accessLogEnabled=false
+  tomcat.protocolHeader: x-forwarded-proto
+  tomcat.remoteIpHeader: x-forwarded-for
+  tomcat.basedir:
+  tomcat.backgroundProcessorDelay: 30
+
+spring: 
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/news?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: root
+
+  jpa: 
+    database: mysql
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        strategy: org.hibernate.cfg.DefaultComponentSafeNamingStrategy
+    properties:
+      hibernate:
+      dialect: org.hibernate.dialect.MySQL5Dialect
+  
+  thymeleaf:
+    cache: false
+    mode: LEGACYHTML5
+    
+  http: 
+    multipart: 
+      maxFileSize: 100Mb  
+      maxRequestSize: 100Mb
+  
+  mvc: 
+    static-path-pattern: /**
+  
+  resources: 
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:${upload-path}
+
+logging:
+  level:
+    com.news: debug
+    org.springframework.web: info
+    org.hibernate: error
+
+upload-path: D:/Work/Workspaces/MyEclipse 2017 CI/news/

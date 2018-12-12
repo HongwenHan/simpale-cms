@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>后台管理</title>
+    <link rel="stylesheet" href="css/init.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/select2.css" />
+    <link rel="stylesheet" type="text/css" href="css/demo.css"/>
+    <link rel="stylesheet" type="text/css" href="css/zTreeStyle.css"/>
+</head>
+
+<body>
+<div class="g-hd" th:include="admin/home :: header">
+    header
+</div>
+<div class="g-sd" th:fragment="left">
+    <div class="sd-">
+    </div>
+    <div class="hd-navication">
+        <ul id="treeDemo" class="ztree"></ul>
+    </div>
+</div>
+<div class="g-mn" th:fragment="center">
+    <div class="widget-box">
+        <div class="widget-title"><span class="icon"> <i class="icon-align-justify"></i> </span>
+            <h5>Personal-info</h5>
+        </div>
+        <div class="widget-content nopadding">
+            <form action="/cms/saveChannel" method="post" class="form-horizontal">
+                <input type="hidden" name="channelId" th:value="${channel.channelId}"/>
+                <div class="control-group">
+                    <label class="control-label">名称 :</label>
+                    <div class="controls">
+                        <input type="text" class="span11" placeholder="栏目名称" name="channelName" th:value="${channel.channelName}"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">访问路径 :</label>
+                    <div class="controls">
+                        <input type="text" class="span11" placeholder="栏目访问路径" name="channelPath" th:value="${channel.channelPath}"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">模板 :</label>
+                    <div class="controls">
+                        <select name="channelModel">
+                            <option value="-- 默认模板--" th:field="${channel.modelPath}" >-- 默认模板--</option>
+                            <option value="1" th:field="${channel.modelPath}" >1</option>
+                            <option value="2" th:field="${channel.modelPath}" >2</option>
+                            <option value="3" th:field="${channel.modelPath}" >3</option>
+                            <option value="4" th:field="${channel.modelPath}" >4</option>
+                            <option value="5" th:field="${channel.modelPath}" >5</option>
+                            <option value="6" th:field="${channel.modelPath}" >6</option>
+                            <option value="7" th:field="${channel.modelPath}" >7</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">是否显示 :</label>
+                    <div class="controls">
+                        <label >是：<input type="radio" th:field="${channel.available}" th:name="available" value="true"/></label> 
+                        <label >否：<input type="radio" th:field="${channel.available}" th:name="available" value="false"/></label> 
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">描述 :</label>
+                    <div class="controls">
+                        <textarea class="span11" name="channelDescript" th:text="${channel.descript}"></textarea>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-success">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="g-ft" th:include="admin/home :: footer">
+    footer
+</div>
+</body>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/select2.min.js"></script>
+<script type="text/javascript" src="js/jquery.ztree.all.min.js"></script>
+<script type="text/javascript" th:inline="javascript">
+    $(function () {
+        var setting = {};
+        var zNodes = /*[[${ztree}]]*/ null;
+        /* var zNodes = [
+            {
+                name: "凤姐", //节点名称
+                open: false,  //节点是否可以展开 凤姐家的门是开着的吗？
+                isParent: true //凤姐有可能会是一个母亲吗？ 是否为文件夹
+
+            },
+            {
+                name: "凤姐他妈",
+                open: true,
+                id: 1,             //自定义的，可有可无  编号
+                url: "sdfsldfsdf",  //自定义的，可有可无  他妈家的地址，老家的地址 点一下就去老家了。
+                children: [       //自定义的，可有可无  他妈的儿孙些  为什么没有他呢？
+                    {
+                        name: "凤姐他弟"
+                    },
+                    {
+                        name: "凤姐他妹",
+                        children: [{
+                            name: "凤姐他妹的儿子"
+                        }]
+                    }
+                ]
+            }
+        ]; */
+        zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+    });
+</script>
+</html>

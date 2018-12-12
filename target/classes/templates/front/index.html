@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>易合新闻</title>
+<link rel="stylesheet" type="text/css" th:href="${base}+'/css/style.css'">
+
+</head>
+
+<body>
+<!--top-->
+<div id="top"  th:fragment="header">
+    <div style="height:44px;"></div>
+    <div class="oa">
+        <!--logo-->
+        <div class="Logo">
+            <img th:src="${base}+'/images/logo-2.png'" />
+        </div>
+        <div class="fl x"></div>
+        <!--咨询电话-->
+        <div class="fr phone">欢迎浏览易合新闻　　咨询电话：010-88888888</div>
+        <!--导航-->
+        <div class="fl nav">
+            <ul>
+                <li><a th:href="${base}+'/front/index'">首页</a></li>
+                <li><a th:href="${base}+'/front/list/ttxw/1'">头条新闻</a></li>
+                <li><a th:href="${base}+'/front/list/tpkd/1'">图片快递</a></li>
+                <li><a th:href="${base}+'/front/list/yszx/1'">影视资讯</a></li>
+                <li><a th:href="${base}+'/front/list/yxzx/1'">游戏资讯</a></li>
+                <li><a th:href="${base}+'/front/list/kjzx/1'">科技资讯</a></li>
+                <li><a th:href="${base}+'/front/list/gyyh/1'">关于易和</a></li>
+                <li><a th:href="${base}+'/front/list/gd/1'">更多...</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!--幻灯-->
+<div class="mag">
+  <div class="mc"><img th:src="${base}+'/images/hd.jpg'" /></div>
+</div>
+
+<div class="center">
+    <div class="m">
+        <!---->
+        <div class="focus fl">
+          <img th:src="${syContent.titlePic}" />
+        </div>
+      <div class="news fr">
+            <h2 class="title"><a th:href="'info?contentId='+${syContent.contentId}" th:text="${syContent.title}">法律支援西部行<span>——易和律师事务所与巴彦淖尔市律师协会法律研讨报道</span></a></h2>
+            <p class="nr" th:text="${syContent.txt}">2010年11月22日，应内蒙古自治区巴彦淖尔市律师协会的邀请，北京市易和律师事务所主任、党支部书记池英花、合伙人杨峰、张晓智启程赴临河市，做题为《律师事务所文化建设与发展关系》的专题交流活动。<br />
+     　　11月23日，北京市易和律师事务所主任、党支部书记池英花在巴彦淖尔市党校礼堂为出席巴市全市年度业务培训的100多名律师作了专题演讲，在演讲过程中，池英花书记详细介绍了北京市律师行业发展的新趋向，深入浅出地道出了律师个人价值观与行业使命感、律师业务与法制建设、律师发展与国家建设的关系。</p>
+        </div>
+        <!--业务领域-->
+        <div class="core fl">
+          <ul class="core_m">
+                <li class="core_img fl"><img  th:src="${base}+'/images/ic.jpg'" /></li> 
+                <li class="core_tit fl">
+                    <p>分类新闻</p>
+                    <span>News</span>
+                </li>
+                <li class="core_more fr"><a href="#">+MORE</a></li>
+                <div class="clear"></div>
+            </ul>
+            <!---->
+            <ul class="core_yw">
+                <li>
+                    <span class="core_yw_img">
+                        <img th:src="${base}+'/images/l-1.jpg'" />
+                        <p class="icons_1"></p>
+                    </span>
+                    <a th:href="${base}+'/front/list/ttxw/1'">头条新闻</a>
+                </li>
+                <li>
+                    <span class="core_yw_img">
+                        <img th:src="${base}+'/images/l-2.jpg'" />
+                        <p class="icons_2"></p>
+                    </span>
+                    <a th:href="${base}+'/front/list/shxw/1'">社会新闻</a>
+                </li>
+                <li>
+                    <span class="core_yw_img">
+                        <img th:src="${base}+'/images/l-3.jpg'" />
+                        <p class="icons_3"></p>
+                    </span>
+                    <a th:href="${base}+'/front/list/yszx/1'">娱乐新闻</a>
+                </li>
+                <li>
+                    <span class="core_yw_img">
+                        <img th:src="${base}+'/images/l-4.jpg'" />
+                        <p class="icons_4"></p>
+                    </span>
+                    <a th:href="${base}+'/front/list/tyxw/1'">体育新闻</a>
+                </li>
+                <li>
+                    <span class="core_yw_img">
+                        <img th:src="${base}+'/images/l-5.jpg'" />
+                        <p class="icons_5"></p>
+                    </span>
+                    <a th:href="${base}+'/front/list/cjxw/1'">财经新闻</a>
+                </li>
+                <li>
+                    <span class="core_yw_img">
+                        <img th:src="${base}+'/images/l-6.jpg'" />
+                        <p class="icons_6"></p>
+                    </span>
+                    <a th:href="${base}+'/front/list/jsxw/1'">军事新闻</a>
+                </li>
+                <li>
+                    <span class="core_yw_img">
+                        <img th:src="${base}+'/images/l-7.jpg'" />
+                        <p class="icons_7"></p>
+                    </span>
+                    <a th:href="${base}+'/front/list/gjxw/1'">国际新闻</a>
+                </li>
+                <li>
+                    <span class="core_yw_img">
+                        <img th:src="${base}+'/images/l-8.jpg'" />
+                        <p class="icons_8"></p>
+                    </span>
+                    <a th:href="${base}+'/front/list/jkxw/1'">健康新闻</a>
+                </li>
+                
+            </ul>
+        </div>
+        <!--最新资讯-->
+        <div class="latest fl">
+            <ul class="core_m">
+                <li class="core_img fl"><img th:src="${base}+'/images/ic.jpg'" /></li> 
+                <li class="core_tit fl">
+                    <p>最新资讯</p>
+                    <span>LATEST INFORMATION</span>
+                </li>
+                <li class="core_more fl"><a th:href="${base}+'/front/list/zxzx/1'">+MORE</a></li>
+                <div class="clear"></div>
+            </ul>
+            <ul class="latest_list">
+                <li th:each="zxzx,iterInfo:${zxzxs}"><a th:href="${base}+'/front/info?contentId='+${zxzx.contentId}" th:text="${zxzx.title}">title</a></li>
+            </ul>
+        </div>
+
+    <div class="clear"></div>
+    </div>
+</div>
+
+<!--footer-->
+<div id="footer" th:fragment="footer">
+    <ul class="fot">
+        <li class="fl">
+            <h2 class="fl tit">关于易和</h2><h2 class="fl tex">About Us</h2>
+            <div class="clear"></div>
+            <span>一家公司化管理、团队化合作、专业化分工的新闻发布网站。</span></li>
+        <li class="fl" style="margin:23px 20px;">
+            <h2 class="fl tit">服务宗旨</h2><h2 class="fl tex">Custimers</h2>
+            <div class="clear"></div>
+            <span>全心全意为用户提供最新、最全的新闻资讯。</span>
+        </li>
+        <li class="fr">
+            <h2 class="fl tit">联系我们</h2><h2 class="fl tex">Contact us</h2>
+            <div class="clear"></div>
+            <span>地址：黑龙江科技大学；<br />传真：010-88888888。
+            </span>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

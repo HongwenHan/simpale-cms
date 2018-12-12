@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>后台管理</title>
+    <link rel="stylesheet" href="css/init.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" type="text/css" href="css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="css/zTreeStyle.css"/>
+</head>
+
+<body>
+<div class="g-hd" th:include="admin/home :: header">
+    header
+</div>
+<div class="g-sd" th:fragment="left">
+    <div class="sd-">
+    </div>
+    <div class="hd-navication">
+        <ul id="treeDemo" class="ztree"></ul>
+    </div>
+</div>
+<div class="g-mn" th:fragment="center">
+    <div class="center-add"><input type="button" name="添加" id="addContent" value="添加"></div>
+    <table class="gridtable">
+        <tr>
+            <th>Id</th><th>标题</th><th>作者</th><th>来源</th><th>发布时间</th><th>操作</th>
+        </tr>
+        <tr th:each="content,iterStat : ${contents}">
+            <td th:text="${content.contentId}">1</td>
+            <td th:text="${content.title}">11位CEO自述：真正决定一个人价值的，是那些艰难时刻的选择</td>
+            <td th:text="${content.author}">吴华</td>
+            <td th:text="${content.organ}">博客园</td>
+            <td th:text="${content.createTime}">2018-04-15 12:12:12</td>
+            <td>
+                <a th:href="'/cms/editContent?contentId='+${content.contentId}">修改</a>&nbsp;&nbsp;
+                <a th:href="'/cms/deleteContent?contentId='+${content.contentId}">删除</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="g-ft" th:include="admin/home :: footer">
+    footer
+</div>
+</body>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/jquery.ztree.all.min.js"></script>
+<script type="text/javascript" th:inline="javascript">
+    $(function(){
+        var setting = {
+        };
+         var zNodes = /*[[${ztree}]]*/ null;
+         zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+    });
+
+    $("#addContent").click(function(){
+        window.location.href = "/cms/addContent";
+    });
+
+</script>
+</html>

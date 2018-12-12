@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>后台管理</title>
+    <link rel="stylesheet" href="css/init.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" type="text/css" href="css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="css/zTreeStyle.css"/>
+</head>
+
+<body>
+<div class="g-hd" th:fragment="header">
+    <div class="hd-logo">
+        <img src="images/logo.png">
+    </div>
+    <div class="hd-control">
+        <div class="user-center">
+            <div class="user-left">
+
+            </div>
+            <div class="user-right">
+                <span class="user" th:text="'欢迎 ' + ${user.realname} ">欢迎 admin</span>
+                <span class="user-set">设置</span>
+                <span class="logout"><a href="/cms/logout">退出</a></span>
+            </div>
+        </div>
+        <div class="con-nav">
+            <ul>
+                <li class="sep"></li>
+                <li th:classappend="${isHome}? 'nav-selected': ''"><a href="/cms">栏目</a></li>
+                <li class="sep"></li>
+                <li th:classappend="${isContent}? 'nav-selected': ''"><a href="content">内容</a></li>
+                <li class="sep"></li>
+                <li th:classappend="${isUser}? 'nav-selected': ''"><a href="user">用户</a></li>
+                <li class="sep"></li>
+                <li><a href="setting" target="_blank">设置</a></li>
+                <li class="sep"></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="g-sd" th:fragment="left">
+    <div class="sd-">
+    </div>
+    <div class="hd-navication">
+        <ul id="treeDemo" class="ztree"></ul>
+    </div>
+</div>
+<div class="g-mn" th:fragment="center">
+    <div class="center-add"><input type="button" name="添加" id="addChannel" value="添加"></div>
+    <table class="gridtable">
+        <tr>
+            <th>Id</th><th>名称</th><th>访问路径</th><th>显示</th><th>操作</th>
+        </tr>
+        <tr th:each="channel,iterStat : ${channels}">
+            <td th:text="${channel.channelId}">Text 1A</td>
+            <td th:text="${channel.channelName}">Text 1B</td>
+            <td th:text="${channel.channelPath}">Text 1C</td>
+            <td th:text="${channel.available} ? '是' : '否'">Text 1C</td>
+            <td>
+                <a th:href="'/cms/editChannel?channelId='+${channel.channelId}">修改</a>&nbsp;&nbsp;
+                <a th:href="'/cms/deleteChannel?channelId='+${channel.channelId}">删除</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="g-ft" th:fragment="footer">
+    <span>新闻发布系统 版权所有©2016-2018 技术支持电话：000-00000000</span>
+</div>
+</body>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/jquery.ztree.all.min.js"></script>
+<script type="text/javascript" th:inline="javascript">
+    $(function(){
+        var setting = {
+        };
+        var zNodes = /*[[${ztree}]]*/ null;
+        zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+    });
+    
+    $("#addChannel").click(function(){
+        window.location.href = "/cms/addChannel";
+    });
+    
+</script>
+</html>

@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>后台管理</title>
+    <link rel="stylesheet" href="css/init.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/select2.css" />
+    <link rel="stylesheet" type="text/css" href="css/demo.css"/>
+    <link rel="stylesheet" type="text/css" href="css/zTreeStyle.css"/>
+</head>
+
+<body>
+<div class="g-hd" th:include="admin/home :: header">
+    header
+</div>
+<div class="g-sd" th:fragment="left">
+    <div class="sd-">
+    </div>
+    <div class="hd-navication">
+        <ul id="treeDemo" class="ztree"></ul>
+    </div>
+</div>
+<div class="g-mn" th:fragment="center">
+    <div class="widget-box">
+        <div class="widget-title"><span class="icon"> <i class="icon-align-justify"></i> </span>
+            <h5>Personal-info</h5>
+        </div>
+        <div class="widget-content nopadding">
+            <form action="/cms/saveContent" method="post" class="form-horizontal" id="saveContent">
+                <div class="control-group">
+                    <label class="control-label">栏目:</label>
+                    <div class="controls">
+                        <select name="channelId">
+                            <option th:each="channel:${channels}" th:value="${channel.channelId}" th:text="${channel.channelName}">新闻中心</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">标题 :</label>
+                    <div class="controls">
+                        <input type="text" class="span11" placeholder="内容标题" name="title"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">作者:</label>
+                    <div class="controls">
+                        <input type="text" class="span11" placeholder="内容作者" name="author"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">来源:</label>
+                    <div class="controls">
+                        <input type="text" class="span11" placeholder="内容来源" name="organ"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">链接:</label>
+                    <div class="controls">
+                        <input type="text" class="span11" placeholder="外部链接" name=link"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">标题图:</label>
+                    <div class="controls">
+                        <input type="file" onchange="fileUpload()"  name="contentFile" id="contentFile" accept="image/x-png,image/gif,image/jpeg,image/bmp" class="span11"/>
+                        <input type="hidden" name="titlePic" id="titlePic"/>
+                    </div>
+                </div>
+                <script type="text/javascript" charset="utf-8" src="UEditor/ueditor.config.js"></script>
+                <script type="text/javascript" charset="utf-8" src="UEditor/ueditor.all.js"> </script>
+                <script type="text/javascript" charset="utf-8" src="UEditor/lang/zh-cn/zh-cn.js"></script>
+                <div style="width: 95%">
+                    <script id="editor" type="text/plain" style="width:100%;height:300px;"></script>
+                </div>
+                <input type="hidden" name="contentTxt" id="contentTxt">
+                <div class="form-actions">
+                    <button type="button" class="btn-success">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="g-ft" th:include="admin/home :: footer">
+    footer
+</div>
+</body>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/jquery.ztree.all.min.js"></script>
+<script type="text/javascript" th:inline="javascript">
+
+    var ue = UE.getEditor('editor');
+
+    $(function(){
+        var setting = {
+        };
+        var zNodes = /*[[${ztree}]]*/ null;
+        zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+    });
+
+    $("#addChannel").click(function(){
+        window.location.href = "/cms/addChannel";
+    });
+    
+    $(".btn-success").click(function(){
+        $("#contentTxt").val(UE.getEditor('editor').getContent());
+        $("#saveContent").submit();
+    });
+    
+    function fileUpload(){  
+          
+        var formData = new FormData();  
+        formData.append('file', $('#contentFile')[0].files[0]);  
+        $.ajax({  
+            url: 'uploadFile',  
+            type: 'POST',  
+            cache: false,  
+            data: formData,  
+            processData: false,  
+            contentType: false  
+        }).done(function(res) {
+            var result = JSON.parse(res);
+            if(result.success){
+                alert("上传成功！");
+                $("#titlePic").val(result.path);
+            }
+        }).fail(function(res) {
+            var result = JSON.parse(res);
+            if(!result.success){
+                alert("上传失败！");
+            }
+        });  
+    }  
+    
+    //实例化编辑器
+    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+    
+
+
+    function isFocus(e){
+        alert(UE.getEditor('editor').isFocus());
+        UE.dom.domUtils.preventDefault(e)
+    }
+    function setblur(e){
+        UE.getEditor('editor').blur();
+        UE.dom.domUtils.preventDefault(e)
+    }
+    function insertHtml() {
+        var value = prompt('插入html代码', '');
+        UE.getEditor('editor').execCommand('insertHtml', value)
+    }
+    function createEditor() {
+        enableBtn();
+        UE.getEditor('editor');
+    }
+    function getAllHtml() {
+        alert(UE.getEditor('editor').getAllHtml())
+    }
+    function getContent() {
+        var arr = [];
+        arr.push("使用editor.getContent()方法可以获得编辑器的内容");
+        arr.push("内容为：");
+        arr.push(UE.getEditor('editor').getContent());
+        alert(arr.join("\n"));
+    }
+    function getPlainTxt() {
+        var arr = [];
+        arr.push("使用editor.getPlainTxt()方法可以获得编辑器的带格式的纯文本内容");
+        arr.push("内容为：");
+        arr.push(UE.getEditor('editor').getPlainTxt());
+        alert(arr.join('\n'))
+    }
+    function setContent(isAppendTo) {
+        var arr = [];
+        arr.push("使用editor.setContent('欢迎使用ueditor')方法可以设置编辑器的内容");
+        UE.getEditor('editor').setContent('欢迎使用ueditor', isAppendTo);
+        alert(arr.join("\n"));
+    }
+    function setDisabled() {
+        UE.getEditor('editor').setDisabled('fullscreen');
+        disableBtn("enable");
+    }
+
+    function setEnabled() {
+        UE.getEditor('editor').setEnabled();
+        enableBtn();
+    }
+
+    function getText() {
+        //当你点击按钮时编辑区域已经失去了焦点，如果直接用getText将不会得到内容，所以要在选回来，然后取得内容
+        var range = UE.getEditor('editor').selection.getRange();
+        range.select();
+        var txt = UE.getEditor('editor').selection.getText();
+        alert(txt)
+    }
+
+    function getContentTxt() {
+        var arr = [];
+        arr.push("使用editor.getContentTxt()方法可以获得编辑器的纯文本内容");
+        arr.push("编辑器的纯文本内容为：");
+        arr.push(UE.getEditor('editor').getContentTxt());
+        alert(arr.join("\n"));
+    }
+    function hasContent() {
+        var arr = [];
+        arr.push("使用editor.hasContents()方法判断编辑器里是否有内容");
+        arr.push("判断结果为：");
+        arr.push(UE.getEditor('editor').hasContents());
+        alert(arr.join("\n"));
+    }
+    function setFocus() {
+        UE.getEditor('editor').focus();
+    }
+    function deleteEditor() {
+        disableBtn();
+        UE.getEditor('editor').destroy();
+    }
+    function disableBtn(str) {
+        var div = document.getElementById('btns');
+        var btns = UE.dom.domUtils.getElementsByTagName(div, "button");
+        for (var i = 0, btn; btn = btns[i++];) {
+            if (btn.id == str) {
+                UE.dom.domUtils.removeAttributes(btn, ["disabled"]);
+            } else {
+                btn.setAttribute("disabled", "true");
+            }
+        }
+    }
+    function enableBtn() {
+        var div = document.getElementById('btns');
+        var btns = UE.dom.domUtils.getElementsByTagName(div, "button");
+        for (var i = 0, btn; btn = btns[i++];) {
+            UE.dom.domUtils.removeAttributes(btn, ["disabled"]);
+        }
+    }
+
+    function getLocalData () {
+        alert(UE.getEditor('editor').execCommand( "getlocaldata" ));
+    }
+
+    function clearLocalData () {
+        UE.getEditor('editor').execCommand( "clearlocaldata" );
+        alert("已清空草稿箱")
+    }
+
+</script>
+</html>

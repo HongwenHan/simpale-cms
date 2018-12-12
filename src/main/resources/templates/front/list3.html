@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>易合新闻</title>
+<link rel="stylesheet" type="text/css" th:href="${base}+'/css/style.css'">
+</head>
+
+<body>
+<!--top-->
+<div id="top"  th:include="front/index :: header">
+    header
+</div>
+
+<!--中间部分-->
+
+<div id="center">
+    <div class="m">
+        <!--右边部分-->
+      <div id="Right" class="fr" style="width: 100%">
+        <div class="bg">
+            <!--历程-->
+            <div class="Con">
+                <ul>
+                    <li th:each="c,iterInfo:${contents}">
+                        <!--  -->
+                        <a class="course" th:href="${c.link}?  ${c.link} : ${base}+'/front/info?contentId='+${c.contentId} " th:text="${c.title}">杭州一巡察组长发现一单位节日不发福利：该发不发</a>
+                        <span class="date" th:text="${c.createTime}">2018-05-02</span>
+                    </li>
+                </ul>
+            </div>
+            <!--分页功能-->
+            <!--分页功能-->
+            <div id="pag" th:if="${total} gt '1'"> 
+                <a  th:href="${path}+${pg+1}" th:each="pg : ${#numbers.sequence(0, total - 1)}" th:text="${pg + 1}">1</a>
+            </div>
+        </div>
+      </div>
+
+    <div class="clear"></div>
+    </div>
+</div>
+
+<!--footer-->
+<div id="footer" th:include="front/index :: footer">
+    footer
+</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>易合新闻</title>
+<link rel="stylesheet" type="text/css" th:href="${base}+'/css/style.css'">
+
+</head>
+
+<body>
+<!--top-->
+<div id="top"  th:include="front/index :: header">
+    header
+</div>
+
+<!--中间部分-->
+
+<div id="center">
+    <div class="m">
+        <!--关于易和-->
+      <div id="Right" class="fr" style="width:100%">
+        <div class="bg">
+            <!--概况-->
+            <div class="Con">
+                <h2 class="Con_tit" th:text="${content.title}">新闻标题</h2>
+                <p class="Con_text" th:utext="${content.txt}">新闻内容</p>
+            </div>
+        </div>
+      </div>
+
+    <div class="clear"></div>
+    </div>
+</div>
+
+<!--footer-->
+<div id="footer" th:include="front/index :: footer">
+    footer
+</div>
+</body>
+</html>

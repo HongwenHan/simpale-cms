@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>后台管理</title>
+    <link rel="stylesheet" href="css/init.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" type="text/css" href="css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="css/zTreeStyle.css"/>
+</head>
+
+<body>
+<div class="g-hd" th:include="admin/home :: header">
+    header
+</div>
+<div class="g-sd" th:fragment="left">
+    <div class="sd-">
+    </div>
+    <div class="hd-navication">
+        <ul>
+            <li class="left-nav">用户</li>
+            <li class="left-nav">角色</li>
+            <li class="left-nav">权限</li>
+        </ul>
+    </div>
+</div>
+<div class="g-mn">
+    <div class="center-add"><input type="button" name="添加" id="addUser" value="添加"></div>
+    <table class="gridtable">
+        <tr>
+            <th>Id</th><th>用户名</th><th>真实姓名</th><th>状态</th><th>角色</th><th>操作</th>
+        </tr>
+        <tr th:each="user,iterStat : ${users}">
+            <td th:text="${user.id}">1</td>
+            <td th:text="${user.username}">admin</td>
+            <td th:text="${user.realname}">管理员</td>
+            <td th:text="${user.state} == 0 ? '正常' : '锁定'">正常</td>
+            <td th:text="${user.isAdmin} ? '是' : '否'">管理员</td>
+            <td>
+                <a th:href="'/cms/editUser?userId='+${user.id}">修改</a>&nbsp;&nbsp;
+                <a th:href="'/cms/deleteUser?userId='+${user.id}">删除</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="g-ft"  th:include="admin/home :: footer">
+    footer
+</div>
+</body>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+    $("#addUser").click(function(){
+        window.location.href = "/cms/addUser";
+    });
+</script>
+</html>
